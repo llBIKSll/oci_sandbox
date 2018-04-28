@@ -29,6 +29,7 @@
 .oci/
 .ssh/
 .terraform/
+.gitignore
 
 # Logs and databases #
 ######################
