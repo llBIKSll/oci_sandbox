@@ -127,11 +127,9 @@ resource "oci_core_security_list" "demo_seclist_dmz" {
     protocol  = "6"         // tcp
     source    = "0.0.0.0/0"
     stateless = false
-
-     // These values correspond to the destination port range.
-      "min" = 22
-      "max" = 22
-    }
+	// These values correspond to the destination port range.
+    "min" = 22
+    "max" = 22
   }
 
   // allow inbound icmp traffic of a specific type
@@ -139,11 +137,6 @@ resource "oci_core_security_list" "demo_seclist_dmz" {
     protocol  = 1
     source    = "0.0.0.0/0"
     stateless = true
-
-    icmp_options {
-      "type" = 3
-      "code" = 4
-    }
   }
 }
 
@@ -163,12 +156,6 @@ resource "oci_core_security_list" "demo_seclist_1" {
     destination = "192.168.2.0/24"
     protocol    = "17"        // udp
     stateless   = true
-
-    udp_options {
-      // These values correspond to the destination port range.
-      "min" = 319
-      "max" = 320
-    }
   }
 
   // allow inbound ssh traffic from a specific port
@@ -176,19 +163,16 @@ resource "oci_core_security_list" "demo_seclist_1" {
     protocol  = "6"         // tcp
     source    = "192.168.1.0/24"
     stateless = false
-
-      // These values correspond to the destination port range.
-      "min" = 22
-      "max" = 22
-    }
-  }
+    // These values correspond to the destination port range.
+    "min" = 22
+    "max" = 22
+   }
 
   // allow inbound icmp traffic of a specific type
   ingress_security_rules {
     protocol  = 1
     source    = "192.168.1.0/24"
     stateless = true
-
   }
 }
 #Instances
@@ -207,8 +191,8 @@ resource "oci_core_instance" "instance" {
   }
 
   metadata {
-		ssh_authorized_keys = "${var.ssh_public_key}"
-		user_data = "${base64encode(file(var.custom_bootstrap_file_name))}"
+		ssh_authorized_keys = "${file(var.ssh_public_key)}"
+		# user_data = "${base64encode(file(var.custom_bootstrap_file_name))}"
 	}
   create_vnic_details {
     subnet_id              = "${oci_core_subnet.demo_subnet_dmz.id}"
