@@ -154,13 +154,13 @@ resource "oci_core_security_list" "demo_seclist_1" {
 
   // allow outbound tcp traffic on all ports
   egress_security_rules {
-    destination = "192.168.1.0/24"
+    destination = "192.168.2.0/24"
     protocol    = "6"         //tcp
   }
 
   // allow outbound udp traffic on a port range
   egress_security_rules {
-    destination = "192.168.1.0/24"
+    destination = "192.168.2.0/24"
     protocol    = "17"        // udp
     stateless   = true
 
@@ -174,7 +174,7 @@ resource "oci_core_security_list" "demo_seclist_1" {
   // allow inbound ssh traffic from a specific port
   ingress_security_rules {
     protocol  = "6"         // tcp
-    source    = "0.0.0.0/0"
+    source    = "192.168.1.0/24"
     stateless = false
 
       // These values correspond to the destination port range.
@@ -186,7 +186,7 @@ resource "oci_core_security_list" "demo_seclist_1" {
   // allow inbound icmp traffic of a specific type
   ingress_security_rules {
     protocol  = 1
-    source    = "0.0.0.0/0"
+    source    = "192.168.1.0/24"
     stateless = true
 
   }
