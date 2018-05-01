@@ -57,13 +57,25 @@ resource "oci_core_vcn" "demo_vcn" {
 #Create Subnet
 #Create the an subnet for the VCN
 #This Public Subnet, can be access over the internet. 
-resource "oci_core_subnet" "demo_subnet" {
+resource "oci_core_subnet" "demo_subnet_dmz" {
   availability_domain = "LBSi:US-ASHBURN-AD-1"
   cidr_block          = "192.168.1.0/24"
-  display_name        = "Demo_Subnet"
+  display_name        = "Demo_Subnet_DMZ"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
   vcn_id              = "${oci_core_vcn.demo_vcn.id}"
-  security_list_ids   = ["${oci_core_security_list.demo_seclist.id}"]
+  security_list_ids   = ["${oci_core_security_list.demo_seclist_dmz.id}"]
+  route_table_id      = "${oci_core_route_table.demo_rt.id}"
+  dhcp_options_id     = "${oci_core_vcn.demo_vcn.default_dhcp_options_id}"
+  dns_label           = "${oci_core_vcn.demo_vcn.dns_label}"
+}
+#This Private Subnet, cannot be access over the internet. 
+resource "oci_core_subnet" "demo_subnet_1" {
+  availability_domain = "LBSi:US-ASHBURN-AD-1"
+  cidr_block          = "192.168.2.0/24"
+  display_name        = "Demo_Subnet_Private1"
+  compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
+  vcn_id              = "${oci_core_vcn.demo_vcn.id}"
+  security_list_ids   = ["${oci_core_security_list.demo_seclist_1.id}"]
   route_table_id      = "${oci_core_route_table.demo_rt.id}"
   dhcp_options_id     = "${oci_core_vcn.demo_vcn.default_dhcp_options_id}"
   dns_label           = "${oci_core_vcn.demo_vcn.dns_label}"
@@ -91,10 +103,11 @@ resource "oci_core_route_table" "demo_rt" {
 # Create Security List
 # Protocols are specified as protocol numbers.
 # http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml
-resource "oci_core_security_list" "demo_seclist" {
+#Security List for DMZ Subnet
+resource "oci_core_security_list" "demo_seclist_dmz" {
   compartment_id = "${oci_identity_compartment.demo_compartment.id}"
   vcn_id         = "${oci_core_vcn.demo_vcn.id}"
-  display_name   = "Demo_Seclist"
+  display_name   = "Demo_Seclist_DMZ"
 
   // allow outbound tcp traffic on all ports
   egress_security_rules {
@@ -107,12 +120,6 @@ resource "oci_core_security_list" "demo_seclist" {
     destination = "0.0.0.0/0"
     protocol    = "17"        // udp
     stateless   = true
-
-    udp_options {
-      // These values correspond to the destination port range.
-      "min" = 319
-      "max" = 320
-    }
   }
 
   // allow inbound ssh traffic from a specific port
@@ -121,13 +128,7 @@ resource "oci_core_security_list" "demo_seclist" {
     source    = "0.0.0.0/0"
     stateless = false
 
-    tcp_options {
-      source_port_range {
-        "min" = 22
-        "max" = 22
-      }
-
-      // These values correspond to the destination port range.
+     // These values correspond to the destination port range.
       "min" = 22
       "max" = 22
     }
@@ -146,6 +147,50 @@ resource "oci_core_security_list" "demo_seclist" {
   }
 }
 
+resource "oci_core_security_list" "demo_seclist_1" {
+  compartment_id = "${oci_identity_compartment.demo_compartment.id}"
+  vcn_id         = "${oci_core_vcn.demo_vcn.id}"
+  display_name   = "Demo_Seclist_1"
+
+  // allow outbound tcp traffic on all ports
+  egress_security_rules {
+    destination = "192.168.1.0/24"
+    protocol    = "6"         //tcp
+  }
+
+  // allow outbound udp traffic on a port range
+  egress_security_rules {
+    destination = "192.168.1.0/24"
+    protocol    = "17"        // udp
+    stateless   = true
+
+    udp_options {
+      // These values correspond to the destination port range.
+      "min" = 319
+      "max" = 320
+    }
+  }
+
+  // allow inbound ssh traffic from a specific port
+  ingress_security_rules {
+    protocol  = "6"         // tcp
+    source    = "0.0.0.0/0"
+    stateless = false
+
+      // These values correspond to the destination port range.
+      "min" = 22
+      "max" = 22
+    }
+  }
+
+  // allow inbound icmp traffic of a specific type
+  ingress_security_rules {
+    protocol  = 1
+    source    = "0.0.0.0/0"
+    stateless = true
+
+  }
+}
 #Instances
 #Bastion Host for access the enviroment
 resource "oci_core_instance" "instance" {
@@ -166,7 +211,7 @@ resource "oci_core_instance" "instance" {
 		user_data = "${base64encode(file(var.custom_bootstrap_file_name))}"
 	}
   create_vnic_details {
-    subnet_id              = "${oci_core_subnet.demo_subnet.id}"
+    subnet_id              = "${oci_core_subnet.demo_subnet_dmz.id}"
     skip_source_dest_check = true
     assign_public_ip       = true
   }

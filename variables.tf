@@ -91,13 +91,4 @@ variable "ref_vcn_cidr_block_demo" {
   description = "VNC ip range for Demo Compartment- NOT FOR PROD"
 }
 
-#Subnet for the VNC to the Demo Compartment
-variable "ref_subnet__demo" {
-  type        = "string"
-  default     = "192.168.0.0/24"
-  description = "VNC ip range for Demo Compartment - NOT FOR PROD"
-}
-
-#Instances
-#Bastion
 
