@@ -28,7 +28,7 @@ variable "ref_user" {
   default     = "ocid1.user.oc1..aaaaaaaa7ael4fy6ox4zmjyjqvy5qb4sv5wfmkicr4no3yundyk7w57k5x7a"
   description = "Deployment User for Demo Refrence Architeture"
 }
- 
+
 #Fingerprint - the fingerprint from the PEM certficate
 variable "ref_fingerprint" {
   type        = "string"

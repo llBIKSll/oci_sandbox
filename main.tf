@@ -41,7 +41,7 @@ resource "oci_identity_policy" "demo_policy" {
   version_date = "2018-04-17"
 }
 */
- 
+
 #Create VCN
 #Create the VCN for the demo compartment
 resource "oci_core_vcn" "demo_vcn" {
