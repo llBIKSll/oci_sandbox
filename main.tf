@@ -127,9 +127,12 @@ resource "oci_core_security_list" "demo_seclist_dmz" {
     protocol  = "6"         // tcp
     source    = "0.0.0.0/0"
     stateless = false
+	
+	tcp_options {
 	// These values correspond to the destination port range.
     "min" = 22
     "max" = 22
+	}
   }
 
   // allow inbound icmp traffic of a specific type
@@ -163,9 +166,12 @@ resource "oci_core_security_list" "demo_seclist_1" {
     protocol  = "6"         // tcp
     source    = "192.168.1.0/24"
     stateless = false
+	
+	tcp_options {
     // These values correspond to the destination port range.
     "min" = 22
     "max" = 22
+	}
    }
 
   // allow inbound icmp traffic of a specific type
@@ -181,8 +187,8 @@ resource "oci_core_instance" "instance" {
   count               = "1"
   availability_domain = "${lookup(data.oci_identity_availability_domains.ref_AD_demo.availability_domains["${count.index}"],"name")}"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
-  display_name        = "Bastion${count.index}"
-  hostname_label      = "Bastion${count.index}"
+  display_name        = "Bastion${count.index+1}"
+  hostname_label      = "Bastion${count.index+1}"
   shape               = "VM.Standard2.1"
 
   source_details {
@@ -191,7 +197,7 @@ resource "oci_core_instance" "instance" {
   }
 
   metadata {
-		ssh_authorized_keys = "${file(var.ssh_public_key)}"
+		ssh_authorized_keys = "${file(var.ref_ssh_key_bastion)}"
 		# user_data = "${base64encode(file(var.custom_bootstrap_file_name))}"
 	}
   create_vnic_details {

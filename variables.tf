@@ -43,11 +43,11 @@ variable "ref_privatekeylocation" {
   description = "The full path for the private key file for Demo Refrence Architeture"
 }
 
-#Private SSH Key location - point to the location where you have the key file
-variable "ref_ssh_public_keyprivatekeylocation" {
+#Public SSH Key Bastion location - point to the location where you have the key file
+variable "ref_ssh_key_bastion" {
   type        = "string"
   default     = ".\\.ssh\\id_rsa.pub"
-  description = "The full path for the private key file for Demo Refrence Architeture"
+  description = "The full path for the prublic key file for Demo Refrence Architeture"
 }
 
 #Advanced Configuration - only done if you need to change default settings
