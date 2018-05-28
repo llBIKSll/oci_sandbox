@@ -189,7 +189,7 @@ resource "oci_core_instance" "instance_bastion" {
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
   display_name        = "Bastion${count.index+1}"
   hostname_label      = "Bastion${count.index+1}"
-  shape               = "VM.Standard2.1"
+  shape               = "VM.Standard1.2"
 
   source_details {
     source_type = "image"
@@ -218,7 +218,7 @@ resource "oci_core_instance" "instance_mng" {
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
   display_name        = "Management${count.index+1}"
   hostname_label      = "Management${count.index+1}"
-  shape               = "VM.Standard2.1"
+  shape               = "VM.Standard1.2"
 
   source_details {
     source_type = "image"
