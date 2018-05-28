@@ -11,14 +11,14 @@ variable "ref_tenancy" {
 #Region - wish region do you want to deploy to?
 variable "ref_region" {
   type        = "string"
-  default     = "us-ashburn-1"
+  default     = "eu-frankfurt-1"
   description = "The region for Demo Refrence Architeture"
 }
 
 #Availability Domain - AD do you want to deploy to?
 variable "ref_availability_domain" {
   type        = "string"
-  default     = "Uocm:IAD-AD-1"
+  default     = "LBSi:EU-FRANKFURT-1-AD-1"
   description = "The AD for Demo Refrence Architeture"
 }
 

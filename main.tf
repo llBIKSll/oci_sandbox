@@ -48,7 +48,7 @@ resource "oci_core_vcn" "demo_vcn" {
   #Required
   cidr_block     = "${var.ref_vcn_cidr_block_demo}"
   compartment_id = "${oci_identity_compartment.demo_compartment.id}"
-  dns_label      = "myoracledemo"
+  dns_label      = "mydemo"
 
   #Optional
   display_name = "${var.ref_vcn_demo}"
@@ -58,7 +58,7 @@ resource "oci_core_vcn" "demo_vcn" {
 #Create the an subnet for the VCN
 #This Public Subnet, can be access over the internet. 
 resource "oci_core_subnet" "demo_subnet_dmz" {
-  availability_domain = "LBSi:US-ASHBURN-AD-1"
+  availability_domain = "${var.ref_availability_domain}"
   cidr_block          = "192.168.1.0/24"
   display_name        = "Demo_Subnet_DMZ"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
@@ -66,11 +66,11 @@ resource "oci_core_subnet" "demo_subnet_dmz" {
   security_list_ids   = ["${oci_core_security_list.demo_seclist_dmz.id}"]
   route_table_id      = "${oci_core_route_table.demo_rt.id}"
   dhcp_options_id     = "${oci_core_vcn.demo_vcn.default_dhcp_options_id}"
-  dns_label           = "${oci_core_vcn.demo_vcn.dns_label}"
+  dns_label           = "dmz${oci_core_vcn.demo_vcn.dns_label}"
 }
 #This Private Subnet, cannot be access over the internet. 
 resource "oci_core_subnet" "demo_subnet_1" {
-  availability_domain = "LBSi:US-ASHBURN-AD-1"
+  availability_domain = "${var.ref_availability_domain}"
   cidr_block          = "192.168.2.0/24"
   display_name        = "Demo_Subnet_Private1"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
@@ -78,7 +78,7 @@ resource "oci_core_subnet" "demo_subnet_1" {
   security_list_ids   = ["${oci_core_security_list.demo_seclist_1.id}"]
   route_table_id      = "${oci_core_route_table.demo_rt.id}"
   dhcp_options_id     = "${oci_core_vcn.demo_vcn.default_dhcp_options_id}"
-  dns_label           = "${oci_core_vcn.demo_vcn.dns_label}"
+  dns_label           = "sub1${oci_core_vcn.demo_vcn.dns_label}"
 }
 
 #Create Internet Gateway
@@ -183,7 +183,7 @@ resource "oci_core_security_list" "demo_seclist_1" {
 }
 #Instances
 #Bastion Host for access the enviroment
-resource "oci_core_instance" "instance" {
+resource "oci_core_instance" "instance_bastion" {
   count               = "1"
   availability_domain = "${lookup(data.oci_identity_availability_domains.ref_AD_demo.availability_domains["${count.index}"],"name")}"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
@@ -193,7 +193,7 @@ resource "oci_core_instance" "instance" {
 
   source_details {
     source_type = "image"
-    source_id   = "ocid1.image.oc1.iad.aaaaaaaaeookczfwutjxzifu2gcdgdx4yk6xls7d5fhtlqbrqzpaxdedny4a" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.uk-london-1.aaaaaaaaukmnq33nzpujx5kt4u2muhkpqx2ja4hycld3ngfb3a4z7doyhvaq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
@@ -210,3 +210,33 @@ resource "oci_core_instance" "instance" {
     create = "60m"
   }
 }
+
+#Management Host for access the enviroment
+resource "oci_core_instance" "instance_mng" {
+  count               = "1"
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ref_AD_demo.availability_domains["${count.index}"],"name")}"
+  compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
+  display_name        = "Management${count.index+1}"
+  hostname_label      = "Management${count.index+1}"
+  shape               = "VM.Standard2.1"
+
+  source_details {
+    source_type = "image"
+    source_id   = "ocid1.image.oc1.uk-london-1.aaaaaaaaukmnq33nzpujx5kt4u2muhkpqx2ja4hycld3ngfb3a4z7doyhvaq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+  }
+
+  metadata {
+		ssh_authorized_keys = "${file(var.ref_ssh_key_bastion)}"
+		# user_data = "${base64encode(file(var.custom_bootstrap_file_name))}"
+	}
+  create_vnic_details {
+    subnet_id              = "${oci_core_subnet.demo_subnet_1.id}"
+    skip_source_dest_check = true
+    assign_public_ip       = false
+  }
+
+  timeouts {
+    create = "60m"
+  }
+}
+
