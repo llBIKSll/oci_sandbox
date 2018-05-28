@@ -193,7 +193,7 @@ resource "oci_core_instance" "instance_bastion" {
 
   source_details {
     source_type = "image"
-    source_id   = "ocid1.image.oc1.uk-london-1.aaaaaaaaukmnq33nzpujx5kt4u2muhkpqx2ja4hycld3ngfb3a4z7doyhvaq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaabsyrkaz5dwyd2szcgo6fnxi5btvoizpnbpdxpxtl7bpqckqpo4cq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
@@ -222,7 +222,7 @@ resource "oci_core_instance" "instance_mng" {
 
   source_details {
     source_type = "image"
-    source_id   = "ocid1.image.oc1.uk-london-1.aaaaaaaaukmnq33nzpujx5kt4u2muhkpqx2ja4hycld3ngfb3a4z7doyhvaq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaabsyrkaz5dwyd2szcgo6fnxi5btvoizpnbpdxpxtl7bpqckqpo4cq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
