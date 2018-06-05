@@ -1,4 +1,4 @@
-data "oci_identity_availability_domains" "ref_AD_demo" {
+data "oci_identity_availability_domains" "ADs" {
   compartment_id = "${oci_identity_compartment.demo_compartment.id}"
 }
 

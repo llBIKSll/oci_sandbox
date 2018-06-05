@@ -56,9 +56,9 @@ resource "oci_core_vcn" "demo_vcn" {
 
 #Create Subnet
 #Create the an subnet for the VCN
-#This Public Subnet, can be access over the internet. 
+#This is a Public Subnet, can be access over the internet. 
 resource "oci_core_subnet" "demo_subnet_dmz" {
-  availability_domain = "${var.ref_availability_domain}"
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[0],"name")}"
   cidr_block          = "192.168.1.0/24"
   display_name        = "Demo_Subnet_DMZ"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
@@ -68,9 +68,10 @@ resource "oci_core_subnet" "demo_subnet_dmz" {
   dhcp_options_id     = "${oci_core_vcn.demo_vcn.default_dhcp_options_id}"
   dns_label           = "dmz${oci_core_vcn.demo_vcn.dns_label}"
 }
-#This Private Subnet, cannot be access over the internet. 
+
+#This is a Private Subnet, cannot be access over the internet. 
 resource "oci_core_subnet" "demo_subnet_1" {
-  availability_domain = "${var.ref_availability_domain}"
+  availability_domain = "${lookup(data.oci_identity_availability_domains.ADs.availability_domains[0],"name")}"
   cidr_block          = "192.168.2.0/24"
   display_name        = "Demo_Subnet_Private1"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"

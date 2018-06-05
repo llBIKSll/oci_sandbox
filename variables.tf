@@ -15,13 +15,6 @@ variable "ref_region" {
   description = "The region for Demo Refrence Architeture"
 }
 
-#Availability Domain - AD do you want to deploy to?
-variable "ref_availability_domain" {
-  type        = "string"
-  default     = "LBSi:EU-FRANKFURT-1-AD-1"
-  description = "The AD for Demo Refrence Architeture"
-}
-
 # Deployment user - used to deploy the Demo Reference Architeture
 variable "ref_user" {
   type        = "string"
@@ -60,6 +53,7 @@ variable "ref_comp_demo" {
   description = "Comparment for Demo Refrence - NOT FOR PROD"
 }
 
+/*
 #Groups
 #Group that have access to the Demo Compartment
 variable "ref_group_demo" {
@@ -67,6 +61,7 @@ variable "ref_group_demo" {
   default     = "Demo_Group"
   description = "Group who have access to Demo Compartment - NOT FOR PROD"
 }
+*/
 
 #Availability Domain
 variable "ref_availability_demo_iad1" {
@@ -75,6 +70,7 @@ variable "ref_availability_demo_iad1" {
   description = "IAD AD1  to Demo Compartment - NOT FOR PROD"
 }
 
+/*
 #Policies
 #Policy Full Access Demo Compartment, give user full access
 variable "ref_policy_demo" {
@@ -82,6 +78,7 @@ variable "ref_policy_demo" {
   default     = "Demo_Group_Full_Access"
   description = "Give full access to all the resource in the  Demo Compartment- NOT FOR PROD"
 }
+*/
 
 #VCN - Networking
 #VCN for the Demo Compartment
