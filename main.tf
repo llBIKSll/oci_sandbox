@@ -185,7 +185,7 @@ resource "oci_core_security_list" "demo_seclist_1" {
 #Bastion Host for access the enviroment
 resource "oci_core_instance" "instance_bastion" {
   count               = "1"
-  availability_domain = "${lookup(data.oci_identity_availability_domains.ref_AD_demo.availability_domains["${count.index}"],"name")}"
+  availability_domain = "${oci_core_subnet.demo_subnet_dmz.availability_domain}"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
   display_name        = "Bastion${count.index+1}"
   hostname_label      = "Bastion${count.index+1}"
@@ -214,7 +214,7 @@ resource "oci_core_instance" "instance_bastion" {
 #Management Host for access the enviroment
 resource "oci_core_instance" "instance_mng" {
   count               = "1"
-  availability_domain = "${lookup(data.oci_identity_availability_domains.ref_AD_demo.availability_domains["${count.index}"],"name")}"
+  availability_domain = "${oci_core_subnet.demo_subnet_1.availability_domain}"
   compartment_id      = "${oci_identity_compartment.demo_compartment.id}"
   display_name        = "Management${count.index+1}"
   hostname_label      = "Management${count.index+1}"
