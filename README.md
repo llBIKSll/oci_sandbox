@@ -1,0 +1,1 @@
+# A simple foundation for Oracle Cloud InfrastructureI have made this simple to support a try out new en stuff and learn more. Instead of to build and environment each time via the UI. Then save time by using the basic foundation to setup.## Overview of the simple foundation 
