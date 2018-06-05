@@ -22,7 +22,7 @@ resource "oci_identity_compartment" "demo_compartment" {
 #Groups for user who can get access to the demo compartment
 resource "oci_identity_group" "demo_group" {
   #Required
-  compartment_id = "${oci_identity_compartment.demo_compartment.id}"
+  compartment_id = "${var.ref_tenancy}"
   description    = "Group who have access to Demo Compartment - NOT FOR PROD"
   name           = "${var.ref_group_demo}"
 }
@@ -31,7 +31,7 @@ resource "oci_identity_group" "demo_group" {
 #Create Policy for user to get full access to the demo compartment
 resource "oci_identity_policy" "demo_policy" {
   #Required
-  compartment_id = "${oci_identity_compartment.demo_compartment.id}"
+  compartment_id = "${var.ref_tenancy}"
   description    = "Give full access to all the resource in the  Demo Compartment - NOT FOR PROD"
   name           = "${var.ref_policy_demo}"
   statements     = ["Allow group Demo_Group to manage all-resources in compartment Demo_Compartment"]
@@ -193,7 +193,7 @@ resource "oci_core_instance" "instance_bastion" {
 
   source_details {
     source_type = "image"
-    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa7d3fsb6272srnftyi4dphdgfjf6gurxqhmv6ileds7ba3m2gltxq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaabsyrkaz5dwyd2szcgo6fnxi5btvoizpnbpdxpxtl7bpqckqpo4cq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
@@ -222,7 +222,7 @@ resource "oci_core_instance" "instance_mng" {
 
   source_details {
     source_type = "image"
-    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa7d3fsb6272srnftyi4dphdgfjf6gurxqhmv6ileds7ba3m2gltxq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaabsyrkaz5dwyd2szcgo6fnxi5btvoizpnbpdxpxtl7bpqckqpo4cq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
