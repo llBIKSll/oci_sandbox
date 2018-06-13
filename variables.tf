@@ -1,98 +1,88 @@
-#Basic Settings - Need to be change before any deployments
-#Tenant information - 
+# This enviroment is for Test,Dev and learnings use cases
+# It is NOT for Production setup
+
+
+# Basic Settings - Need to be change before any deployments
+# Tenant information
 # Tenant - you tenant
-variable "ref_tenancy" {
-  type        = "string"
-  default     = "ocid1.tenancy.oc1..aaaaaaaa3pi2x5yqidqenk4ybimduwxvmlwcuxuetz7k3iuini4jjlmmy36q"
-  description = "Tenancy id"
-}
+variable "tenancy" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
-#Region and Availability Domain
-#Region - wish region do you want to deploy to?
-variable "ref_region" {
-  type        = "string"
-  default     = "eu-frankfurt-1"
-  description = "The region for Demo Refrence Architeture"
-}
+# Comparment - the Comparment where the enviroment will be deployed in
+variable "compartment" {} # # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
-# Deployment user - used to deploy the Demo Reference Architeture
-variable "ref_user" {
-  type        = "string"
-  default     = "ocid1.user.oc1..aaaaaaaa7ael4fy6ox4zmjyjqvy5qb4sv5wfmkicr4no3yundyk7w57k5x7a"
-  description = "Deployment User for Demo Refrence Architeture"
-}
+# Region and Availability Domain
+# Region - wish region do you want to deploy to?
+variable "region" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
-#Fingerprint - the fingerprint from the PEM certficate
-variable "ref_fingerprint" {
-  type        = "string"
-  default     = "88:b6:8e:45:86:36:fb:3d:c2:50:9e:4a:3a:2c:b4:e2"
-  description = "Fingerprint from the PEM certficate for Demo Refrence Architeture"
-}
+# Deployment user - used to deploy the enviroment
+variable "user" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
-#PrivateKey location - point to the location where you have the key file
-variable "ref_privatekeylocation" {
-  type        = "string"
-  default     = ".\\.oci\\oci_api_key.pem"
-  description = "The full path for the private key file for Demo Refrence Architeture"
-}
+# Fingerprint - the fingerprint from the PEM certficate
+variable "fingerprint" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
-#Public SSH Key Bastion location - point to the location where you have the key file
-variable "ref_ssh_key_bastion" {
+# PrivateKey location - point to the location where you have the key file
+variable "privatekeylocation" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+
+# Public SSH Key Bastion location - point to the location where you have the key file
+variable "ssh_key_bastion" {
   type        = "string"
   default     = ".\\.ssh\\id_rsa.pub"
-  description = "The full path for the prublic key file for Demo Refrence Architeture"
 }
 
 #Advanced Configuration - only done if you need to change default settings
 
-#Comparments
-#Comparment reference for Demo Env
-variable "ref_comp_demo" {
+# Comparments
+# Comparment reference for enviroment
+variable "comp" {
   type        = "string"
   default     = "Demo_Compartment"
-  description = "Comparment for Demo Refrence - NOT FOR PROD"
 }
 
 /*
-#Groups
-#Group that have access to the Demo Compartment
-variable "ref_group_demo" {
+# Groups
+# Group that have access to the enviroment
+variable "group" {
   type        = "string"
   default     = "Demo_Group"
-  description = "Group who have access to Demo Compartment - NOT FOR PROD"
 }
 */
 
-#Availability Domain
-variable "ref_availability_demo_iad1" {
+# Availability Domain
+variable "availability_iad1" {
   type        = "string"
   default     = "0"
-  description = "IAD AD1  to Demo Compartment - NOT FOR PROD"
 }
-
 /*
-#Policies
-#Policy Full Access Demo Compartment, give user full access
-variable "ref_policy_demo" {
+# Policies
+# Policy Full Access enviroment, give user full access
+variable "policy" {
   type        = "string"
   default     = "Demo_Group_Full_Access"
-  description = "Give full access to all the resource in the  Demo Compartment- NOT FOR PROD"
+
 }
 */
 
-#VCN - Networking
-#VCN for the Demo Compartment
-variable "ref_vcn_demo" {
+# VCN - Networking
+# VCN for the enviroment
+variable "vcn" {
   type        = "string"
-  default     = "Demo_VNC"
-  description = "VNC for Demo Compartment - NOT FOR PROD"
+  default     = "VNC"
 }
 
-#CIDR - ip range for VNC for the Demo Compartment
-variable "ref_vcn_cidr_block_demo" {
+# CIDR - ip range for VNC for the enviroment
+variable "vcn_cidr_block" {
   type        = "string"
   default     = "192.168.0.0/16"
-  description = "VNC ip range for Demo Compartment- NOT FOR PROD"
+
 }
+# Image locations
+variable "image-Oracle-Linux-7-5-2018-05-09-1" {
+  type = "map"
 
-
+  default = {
+    eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaazregkysspxnktw35k4r5vzwurxk6myu44umqthjeakbkvxvxdlkq"
+    us-ashburn-1 = "ocid1.image.oc1.iad.aaaaaaaa6ybn2lkqp2ejhijhehf5i65spqh3igt53iyvncyjmo7uhm5235ca"
+    uk-london-1 =	"ocid1.image.oc1.uk-london-1.aaaaaaaayodsld656eh5stds5mo4hrmwuhk2ugin4eyfpgoiiskqfxll6a4a"
+    us-phoenix-1 = "ocid1.image.oc1.phx.aaaaaaaaozjbzisykoybkppaiwviyfzusjzokq7jzwxi7nvwdiopk7ligoia"
+  }
+}

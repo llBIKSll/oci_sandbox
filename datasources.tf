@@ -1,5 +1,5 @@
 data "oci_identity_availability_domains" "ADs" {
-  compartment_id = "${oci_identity_compartment.demo_compartment.id}"
+  compartment_id = "${var.compartment}"
 }
 
 /*
