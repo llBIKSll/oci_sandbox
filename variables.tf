@@ -38,29 +38,26 @@ variable "comp" {
   default     = "Demo_Compartment"
 }
 
-/*
+
 # Groups
 # Group that have access to the enviroment
 variable "group" {
   type        = "string"
   default     = "Demo_Group"
 }
-*/
 
 # Availability Domain
 variable "availability_iad1" {
   type        = "string"
   default     = "0"
 }
-/*
+
 # Policies
 # Policy Full Access enviroment, give user full access
 variable "policy" {
   type        = "string"
   default     = "Demo_Group_Full_Access"
-
 }
-*/
 
 # VCN - Networking
 # VCN for the enviroment

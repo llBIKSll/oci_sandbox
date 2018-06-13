@@ -7,11 +7,22 @@ provider "oci" {
   #  private_key_password = "${var.private_key_password}"
   region = "${var.region}"
 }
-/*
+provider "oci" {
+  alias = "ashburn"
+  tenancy_ocid     = "${var.tenancy}"
+  user_ocid        = "${var.user}"
+  fingerprint      = "${var.fingerprint}"
+  private_key_path = "${var.privatekeylocation}"
+
+  #  private_key_password = "${var.private_key_password}"
+  region = "us-ashburn-1"
+}
+
 #Create Compartmens
 #Comparment reference for Prod env
 resource "oci_identity_compartment" "compartment" {
   #Required
+  provider = "oci.ashburn"
   compartment_id = "${var.tenancy}"
   description    = "Comparment for enviroment"
   name           = "${var.comp}"
@@ -22,6 +33,7 @@ resource "oci_identity_compartment" "compartment" {
 #Groups for user who can get access to the compartment
 resource "oci_identity_group" "group" {
   #Required
+  provider = "oci.ashburn"
   compartment_id = "${var.tenancy}"
   description    = "Group who have access to Compartment"
   name           = "${var.group}"
@@ -31,16 +43,18 @@ resource "oci_identity_group" "group" {
 #Create Policy for user to get full access to the compartment
 resource "oci_identity_policy" "policy" {
   #Required
-  compartment_id = "${var.tenancy}"
+  provider = "oci.ashburn"
+  compartment_id = "${var.compartment}"
   description    = "Give full access to all the resource in the Compartment"
   name           = "${var.policy}"
-  statements     = ["Allow group Group to manage all-resources in compartment Compartment"]
+  statements     = ["Allow group Demo_Group to manage all-resources in compartment Demo_Compartment"] 
+  # I need to make smarter, no hard code values
 
   #Common Policies - //docs.us-phoenix-1.oraclecloud.com/Content/Identity/Concepts/commonpolicies.htm
   #Optional
   version_date = "2018-04-17"
 }
-*/
+
 
 #Create VCN
 #Create the VCN for the compartment
@@ -194,7 +208,7 @@ resource "oci_core_instance" "instance_bastion" {
 
   source_details {
     source_type = "image"
-    source_id   = "var.image-Oracle-Linux-7-5-2018-05-09-1" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaazregkysspxnktw35k4r5vzwurxk6myu44umqthjeakbkvxvxdlkq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {
@@ -223,7 +237,7 @@ resource "oci_core_instance" "instance_mng" {
 
   source_details {
     source_type = "image"
-    source_id   = "var.image-Oracle-Linux-7-5-2018-05-09-1" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaazregkysspxnktw35k4r5vzwurxk6myu44umqthjeakbkvxvxdlkq" #https://docs.us-phoenix-1.oraclecloud.com/images/image/b858e2a2-2ba8-43ef-86b3-57f1aa735a28/
   }
 
   metadata {

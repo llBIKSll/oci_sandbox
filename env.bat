@@ -5,7 +5,7 @@ setx TF_VAR_fingerprint "88:b6:8e:45:86:36:fb:3d:c2:50:9e:4a:3a:2c:b4:e2"
 setx TF_VAR_privatekeylocation ".\\.oci\\oci_api_key.pem"
 
 REM Deployement Region
-setx TF_VAR_region "us-ashburn-1"
+setx TF_VAR_region "eu-frankfurt-1"
 REM eu-frankfurt-1, uk-london-1, us-ashburn-1, us-phoenix-1
 
 
