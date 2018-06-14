@@ -23,6 +23,12 @@ variable "fingerprint" {} # the input will come from the enviroment variable fil
 # PrivateKey location - point to the location where you have the key file
 variable "privatekeylocation" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
 
+# Public SSH Key location - point to the location where you have the key file
+variable "ssh_public_key" {
+  type        = "string"
+  default     = ".\\.ssh\\id_rsa.pub"
+}
+
 #Advanced Configuration - only done if you need to change default settings
 
 # Comparments
@@ -38,12 +44,6 @@ variable "comp" {
 variable "group" {
   type        = "string"
   default     = "Demo_Group"
-}
-
-# Availability Domain
-variable "availability_iad1" {
-  type        = "string"
-  default     = "0"
 }
 
 # Policies
