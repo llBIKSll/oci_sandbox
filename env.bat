@@ -1,16 +1,16 @@
 REM Authentication details
-setx TF_VAR_tenancy "ocid1.tenancy.oc1..aaaaaaaa3pi2x5yqidqenk4ybimduwxvmlwcuxuetz7k3iuini4jjlmmy36q"
-setx TF_VAR_user "ocid1.user.oc1..aaaaaaaa7ael4fy6ox4zmjyjqvy5qb4sv5wfmkicr4no3yundyk7w57k5x7a"
+setx TF_VAR_tenancy "ocid1.tenancy.oc1..aaaaaaaaq4opdzi7h3t6zlqj2nrbeidvmyugbwbgr3et3rtojwfsp7vu5zrq"
+setx TF_VAR_user "ocid1.user.oc1..aaaaaaaaoxcnc5ik7bthl77v5634owqe2h33ackmfy6f6easbrvj3jfcocba"
 setx TF_VAR_fingerprint "88:b6:8e:45:86:36:fb:3d:c2:50:9e:4a:3a:2c:b4:e2"
 setx TF_VAR_privatekeylocation ".\\.oci\\oci_api_key.pem"
 
 REM Deployement Region
-setx TF_VAR_region "eu-frankfurt-1"
+setx TF_VAR_region "us-ashburn-1"
 REM eu-frankfurt-1, uk-london-1, us-ashburn-1, us-phoenix-1
 
 
 REM Compartment
-setx TF_VAR_compartment "ocid1.compartment.oc1..aaaaaaaaza5vfh3diisvf22lji7mcth4jnozi4mllzxg4hoar5rz6g5vusrq"
+setx TF_VAR_compartment "ocid1.compartment.oc1..aaaaaaaaj2pr6wc2bk4ninhqgaqg2dfrtuquvjoro6ja3pp67lmn47btpdzq"
 
 REM Public/private keys used on the instance
 setx TF_VAR_ssh_public_key .\\.ssh\\id_rsa.pub

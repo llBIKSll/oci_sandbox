@@ -1,4 +1,5 @@
 #Create Compartmens
+/*
 #Comparment reference for Prod env
 resource "oci_identity_compartment" "compartment" {
   #Required
@@ -34,3 +35,4 @@ resource "oci_identity_policy" "policy" {
   #Optional
   version_date = "2018-04-17"
 }
+*/

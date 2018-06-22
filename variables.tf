@@ -38,6 +38,11 @@ variable "comp" {
   default     = "Demo_Compartment"
 }
 
+# Root Comparment
+variable "rootcomp" {
+	type = "string"
+	default = "ocid1.tenancy.oc1..aaaaaaaaq4opdzi7h3t6zlqj2nrbeidvmyugbwbgr3et3rtojwfsp7vu5zrq"
+}
 
 # Groups
 # Group that have access to the enviroment
