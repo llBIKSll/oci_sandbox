@@ -1,3 +1,4 @@
+# Create a Policy to get PSM access to the compartment, so it support deployment of DB CS Classic and Java CS Classic
 resource "oci_identity_policy" "PaaSPSMPolicy" {
 	#Required
 	compartment_id = "${var.root_compartment}"
