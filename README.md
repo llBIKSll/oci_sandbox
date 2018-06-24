@@ -16,7 +16,7 @@ The foundation have some basic component.
 ![alt tag](http://www.biks.net/wp-content/uploads/2018/06/oci_demo_env-1.png "Overview")
 
 ## You like to start?
-1st you need is to edit the ent.bat file, works for windows. Change the values so it fit you cloud.
+1st you need is to edit the set-env.ps1 file, works for windows. Change the values so it fit your cloud.
 
 2nd you need to create a key for the user, and add the public part of it you user API key in the console. Put the pem key in the .oci folder
 
