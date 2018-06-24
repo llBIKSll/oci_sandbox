@@ -5,23 +5,28 @@
 # Basic Settings - Need to be change before any deployments
 # Tenant information
 # Tenant - you tenant
-variable "tenancy" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+# the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
+variable "tenancy" {} 
 
 # Comparment - the Comparment where the enviroment will be deployed in
-variable "compartment" {} # # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+# the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
+variable "compartment" {} 
 
 # Region and Availability Domain
 # Region - wish region do you want to deploy to?
-variable "region" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+variable "region" {} # the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
 
 # Deployment user - used to deploy the enviroment
-variable "user" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+# the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
+variable "user" {} 
 
 # Fingerprint - the fingerprint from the PEM certficate
-variable "fingerprint" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+# the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
+variable "fingerprint" {} 
 
 # PrivateKey location - point to the location where you have the key file
-variable "privatekeylocation" {} # the input will come from the enviroment variable file (windows env.bat, linux env-vars)
+# the input will come from the enviroment variable file (windows env.bat/set_env.ps1, linux env-vars)
+variable "privatekeylocation" {} 
 
 # Public SSH Key location - point to the location where you have the key file
 variable "ssh_public_key" {
@@ -36,12 +41,6 @@ variable "ssh_public_key" {
 variable "comp" {
   type        = "string"
   default     = "Demo_Compartment"
-}
-
-# Root Comparment
-variable "rootcomp" {
-	type = "string"
-	default = "ocid1.tenancy.oc1..aaaaaaaaq4opdzi7h3t6zlqj2nrbeidvmyugbwbgr3et3rtojwfsp7vu5zrq"
 }
 
 # Groups
