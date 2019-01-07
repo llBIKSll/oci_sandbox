@@ -6,7 +6,7 @@ resource "oci_core_instance" "instance_bastion" {
   compartment_id      = "${var.compartment}"
   display_name        = "Bastion${count.index+1}"
   hostname_label      = "Bastion${count.index+1}"
-  shape               = "VM.Standard2.1"
+  shape               = "VM.Standard2.4"
 
   source_details {
     source_type = "image"
