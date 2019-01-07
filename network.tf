@@ -52,7 +52,8 @@ resource "oci_core_route_table" "rt" {
   display_name   = "Table"
 
   route_rules {
-    cidr_block        = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
+    destination       = "0.0.0.0/0"
     network_entity_id = "${oci_core_internet_gateway.ig.id}"
   }
 }
