@@ -35,7 +35,7 @@ resource "oci_core_instance" "instance_mng" {
   compartment_id      = "${var.compartment}"
   display_name        = "Management${count.index+1}"
   hostname_label      = "Management${count.index+1}"
-  shape               = "VM.Standard2.1"
+  shape               = "VM.Standard2.4"
 
   source_details {
     source_type = "image"
